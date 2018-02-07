@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="~/Content/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teagan Durtschi - Sequence Viewer (BETA)</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-debug.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+
+<header>
+    <div id="header-content">
+        <img id="logo" src="~/Content/logo-full.jpg" />
+        <span>Sequence Viewer</span>
+        <button id="info-button" data-bind="click: showInfoModal">i</button>
+    </div>
+</header>
+
+<section style="display: none;" data-bind="visible: true">
+    <div id="table-header">
+        <label>Search: </label>
+        <input type="text" data-bind="textInput: searchText, event: { input: updateSearch }" />
+        <button id="new-protein-button" data-bind="click: showAddProteinModal">+ Add Sequence</button>
+    </div>
+    <table id="protein-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Isoelectric Point</th>
+                <th>Molecular Weight</th>
+                <th>Description</th>
+                <th>Year Discovered</th>
+                <th>Discovered By</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: proteins">
+            <tr class="protein-row" data-bind="visible: isVisible, click: $root.showSequenceModal" title="Click to show Sequence">
+                <td data-bind="text: Name"></td>
+                <td data-bind="text: IsoelectricPoint"></td>
+                <td data-bind="text: MolecularWeight"></td>
+                <td data-bind="text: Description"></td>
+                <td data-bind="text: YearDiscovered"></td>
+                <td data-bind="text: DiscoveredBy"></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<div id="modals-container" style="display:none;" data-bind="visible:true">
+    <div id="modal-add-protein" class="modal-full" data-bind="visible: addProteinModalVisible">
+        <div class="modal-full-content">
+            <h2>Add a New Protein Sequence</h2>
+            <hr/>
+            <form method="post" id="new-protein-form" data-bind="event: {submit: addProteinSubmit}">
+                <label>Name*:	</label>
+                <input type="text" name="Name" data-bind="value:addProteinForm.Name, css: { invalid : addProteinForm.NameValid() == false}"/>
+                <br />
+                <label>Sequence*:	</label>
+                <input type="text" name="Sequence" data-bind="value:addProteinForm.Sequence, css: { invalid : addProteinForm.SequenceValid() == false}"/>
+                <br />
+                <label>Description*:	</label>
+                <input type="text" name="Description" data-bind="value:addProteinForm.Description, css: { invalid : addProteinForm.DescriptionValid() == false}"/>
+                <br />
+                <label>Isoelectric Point:	</label>
+                <input type="text" name="IsoelectricPoint" data-bind="value:addProteinForm.IsoelectricPoint, css: { invalid : addProteinForm.IsoelectricPointValid() == false}"/>
+                <br />
+                <label>Molecular Weight:	</label>
+                <input type="text" name="MolecularWeight" data-bind="value:addProteinForm.MolecularWeight, css: { invalid : addProteinForm.MolecularWeightValid() == false}"/>
+                <br/>
+                <label>Year Discovered:	</label>
+                <input type="text" name="YearDiscovered" data-bind="value:addProteinForm.YearDiscovered, css: { invalid : addProteinForm.YearDiscoveredValid() == false}"/>
+                <br/>
+                <label>Discovered By:</label>
+                <input type="text" name="DiscoveredBy" data-bind="value:addProteinForm.DiscoveredBy, css: { invalid : addProteinForm.DiscoveredByValid() == false}"/>
+                <hr />
+                <button data-bind="click: hideAddProteinModal">Cancel</button>
+                <button type="submit">Submit</button>
+            </form>
+            <p>* indicates a required field.</p>
+            <ul id="form-validation-list" data-bind="foreach: addProteinForm.validationMsgs">
+                <li data-bind="text: $data"></li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal-info" class="modal-full" data-bind="visible: infoModalVisible">
+        <div class="modal-full-content">
+            <h2>About This Application</h2>
+            <hr/>
+            <p>Author: Teagan Durtschi<br/>
+               Date: 11/30/2017</p>
+            <p>Description: A contrived web application for Adding to and searching through a Sequence database.
+               Try the search feature! It will search the entire sequence, highlight matching sections, and can even search on multiple terms (separated by a space)</p>
+            <p>Created using SQLite, ASP.NET and Knockout.js</p>
+            @Html.ActionLink("Link to data upload utility", "UploadUtility")
+            <hr/>
+            <button data-bind="click: hideInfoModal">Ok</button>
+        </div>
+    </div>
+    <div id="modal-view-error" class="modal-full" data-bind="visible: errorModalVisible">
+        <div class="modal-tooltip">
+            <h2>Error</h2>
+            <hr />
+            <p data-bind="text: errorMessage"></p>
+            <hr />
+            <button id="hide-sequence-button" data-bind="click: hideErrorModal">Ok</button>
+        </div>
+    </div>
+    <div id="modal-view-sequence" class="modal-full" data-bind="visible: viewSequenceModalVisible">
+        <div class="modal-tooltip">
+            <h2>View Protein Sequence </h2>
+            <hr />
+            <span id="sequence-container" data-bind="foreach: proteinArray">
+                <span data-bind="css: {highlighted: highlighted}, text:char">
+                </span>
+            </span>
+            <hr />
+            <button id="hide-sequence-button" data-bind="click: hideSequenceModal">Ok</button>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/knockout")
+</body>
+</html>

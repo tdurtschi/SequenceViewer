@@ -1,0 +1,153 @@
+﻿body {
+    color: #333333;
+    margin:0px;
+    min-width:35em;
+}
+
+header {
+    width:100%;
+    border-bottom: 1px solid black;
+    padding-bottom:0.5em;
+}
+
+#header-content{
+    height:4em;
+    max-width: 60em;
+    margin: 0 auto;
+}
+
+#header-content span{
+    vertical-align:middle;
+    font-family: sans-serif;
+    font-weight:bold;
+    font-size: 14pt;
+    margin-left:0.5em;
+}
+
+#logo{
+    padding: 0.5em 0em 0.5em 0.5em;
+    margin-top:0.4em;
+    height:3.5em;
+    vertical-align:middle;
+}
+
+#info-button{
+    float:right;
+    margin-top:1.5em;
+    margin-right:1em;
+    height:2em;
+    width:2em;
+    font-family: serif;
+    border-radius:1em;
+    border:1px solid black;
+}
+
+section {
+    margin:0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width:50em;
+}
+
+#table-header{
+    padding: 0.5em 0em;
+}
+
+#new-protein-button{
+    background-color: #FFFFFF;
+    cursor:pointer;
+    height: 1.7em;
+    padding:3px;
+    float:right;
+    border-radius:0.75em;
+    border: 1px solid black;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+#new-protein-button:hover {
+    background-color: #EEEEEE;
+}
+
+.modal-full{
+    position:fixed;
+    top:0px;
+    left:0px;
+    height:100%;
+    width:100%;
+    background-color: rgba(0,0,0,0.1);
+    z-index:1000;
+}
+
+.modal-full-content{
+    margin: 5em auto 0 auto;
+    max-width: 25em;
+    padding: 1em;
+    background-color:#ffffff;
+    border: 1px black solid;
+}
+
+.modal-tooltip{
+    margin: 5em auto 0 auto;
+    max-width: 25em;
+    padding: 1em;
+    background-color:#ffffff;
+    border: 1px black solid;
+    word-wrap: break-word;
+}
+
+.invalid{
+    border: 1px solid red;
+}
+
+#new-protein-form input{
+    margin:0.5em;
+}
+
+#form-validation-list{
+    color:red;
+}
+
+#protein-table, #protein-table th, #protein-table td {
+    border:1px solid black;
+    border-collapse:collapse;
+    width:100%;
+}
+#protein-table th {
+    text-align:left;
+    padding:3px 5px;
+}
+#protein-table td {
+    padding:2px 2px 2px 4px;
+}
+
+#protein-table tr:nth-child(even){
+    background-color: #f2f2f2;
+
+}
+
+.protein-row:hover{
+    cursor:pointer;
+    background-color: #DDDDDD;
+}
+
+
+.highlighted {
+    background-color: #00FF00;
+}
+
+#sequence-container{
+    font-size:0px;
+}
+
+#sequence-container span{
+    font-size:12pt;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+

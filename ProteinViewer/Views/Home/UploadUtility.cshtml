@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/uploadutil.js")
+</head>
+<body>
+    <p>This tool will populate an empty database with the protein sample data that was provided.</p>
+    <p><strong>Warning:</strong> If the data has already been preloaded, expect an error from the server!</p>
+    <div>
+        <button onclick="upload()">Upload</button>
+    </div>
+</body>
+</html>
